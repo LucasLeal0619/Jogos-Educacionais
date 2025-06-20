@@ -1,0 +1,46 @@
+/* ===== ESTILOS GLOBAIS COMPARTILHADOS ===== */
+
+/* Estilos para o campo de pesquisa */
+#pesquisa {
+    margin-top: 4px;
+    width: 30vw;
+    min-width: 200px; /* Largura mínima para dispositivos pequenos */
+}
+
+/* Espaçamento entre links do navbar */
+#links-start {
+    gap: 10px;
+}
+
+/* Estilos para o navbar */
+.navbar {
+    padding: 0.5rem 1rem;
+}
+
+.navbar-brand .title {
+    color: white !important;
+}
+
+/* Responsividade para o navbar */
+@media screen and (max-width: 1023px) {
+    .navbar-menu {
+        background-color: #3273dc;
+    }
+    
+    .navbar-item {
+        color: white !important;
+    }
+}
+
+/* Estilos para dispositivos móveis */
+@media screen and (max-width: 768px) {
+    #pesquisa {
+        width: 50vw;
+        min-width: 150px;
+    }
+    
+    .navbar-end {
+        margin-top: 1rem;
+    }
+}
+

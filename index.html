@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogos na Educação</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+    >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-ChzDzmAAZJAw9nKToSX3rKV4mE3bZ7ouYGE0t+w0Ni/1RWhGztBczynPnDJ1tE1m/ePuQ6bbCjvPtO59emGS1u+X+9c6V8" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="FrontEnd/global.css">
+    <link rel="stylesheet" href="FrontEnd/style.css">
+</head>
+<body>
+    <!-- Header com navegação principal -->
+    <header class="box navbar is-primary" id="navbar-flex">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="index.html">
+                <h1 class="title" id="title">Jogos Na Educação</h1>
+            </a>
+            <!-- Botão do menu mobile -->
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start" id="links-start">
+                <a class="navbar-item" href="index.html">Início</a>
+                <a class="navbar-item" href="FrontEnd/pages/biblioteca.html">Biblioteca</a>
+                <a class="navbar-item" href="FrontEnd/pages/materiais.html">Materiais</a>
+                <a class="navbar-item" href="FrontEnd/pages/quemSomos.html">Quem Somos</a>
+            </div>
+            <div class="navbar-end">
+                <div class="control has-icons-left">
+                    <input class="input" type="text" placeholder="Pesquisar" id="pesquisa">
+                    <span class="icon is-left">
+                        <i class="fas fa-search"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo principal -->
+    <main>
+        <!-- Seção de texto introdutório -->
+        <section id="texts">
+            <p class="title is-size-3" id="neymar">
+                Quer melhorar seu aprendizado utilizando jogos digitais incríveis para isso? Conheça nosso site:
+            </p>
+        </section>
+        
+        <!-- Seção de cards de navegação -->
+        <section id="divs">
+            <div class="box divs_path" id="biblioteca_div">
+                <a href="FrontEnd/pages/biblioteca.html">
+                    <img src="FrontEnd/assets/img/Biblioteca de.png" alt="Biblioteca de Jogos Educacionais">
+                </a>
+            </div>
+            <div class="box divs_path" id="materiais_div">
+                <a href="FrontEnd/pages/materiais.html">
+                    <img src="FrontEnd/assets/img/Materiais.png" alt="Materiais de Estudo">
+                </a>
+            </div>
+            <div class="box divs_path" id="quemSomos_div">
+                <a href="FrontEnd/pages/quemSomos.html">
+                    <img src="FrontEnd/assets/img/Materiais (1).png" alt="Quem Somos">
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Script para funcionalidade do menu mobile -->
+    <script src="FrontEnd/main.js"></script>
+</body>
+</html>

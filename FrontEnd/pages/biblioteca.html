@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca - Jogos na Educação</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+    >
+    <link 
+      rel="stylesheet" 
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+      integrity="sha512-ChzDzmAAZJAw9nKToSX3rKV4mE3bZ7ouYGE0t+w0Ni/1RWhGztBczynPnDJ1tE1m/ePuQ6bbCjvPtO59emGS1u+X+9c6V8" 
+      crossorigin="anonymous" 
+      referrerpolicy="no-referrer" 
+    />
+    <link rel="stylesheet" href="../global.css">
+    <link rel="stylesheet" href="biblioteca.css">
+</head>
+<body>
+    <!-- Header com navegação principal -->
+    <header class="box navbar is-primary" id="navbar-flex">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="../../index.html">
+                <h1 class="title" id="title">Jogos Na Educação</h1>
+            </a>
+            <!-- Botão do menu mobile -->
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start" id="links-start">
+                <a class="navbar-item" href="../../index.html">Início</a>
+                <a class="navbar-item" href="biblioteca.html">Biblioteca</a>
+                <a class="navbar-item" href="materiais.html">Materiais</a>
+                <a class="navbar-item" href="quemSomos.html">Quem Somos</a>
+            </div>
+            <div class="navbar-end">
+                <div class="control has-icons-left">
+                    <input class="input" type="text" placeholder="Pesquisar" id="pesquisa">
+                    <span class="icon is-left">
+                        <i class="fas fa-search"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo principal -->
+    <main>
+        <h2 class="subtitle">Nossos Cursos</h2>
+        
+        <!-- Container dos cursos -->
+        <section id="courses" class="columns is-multiline">
+            <!-- Card 1 - Introdução ao Minecraft -->
+            <div class="column is-one-quarter">
+                <div class="card" id="card_1">
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            <img src="../assets/img/MINECRAFT.png" alt="Curso de Introdução ao Minecraft">
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <p class="title is-4">Introdução ao Minecraft</p>
+                        <p class="subtitle is-6">Primeira aula do Curso de minecraft.</p>
+                        <div class="content">
+                            Aprenda a jogar o minecraft, que será utilizado em nossas aulas.
+                            <br>
+                            <button class="button is-primary" id="openModal">Assistir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal para exibição do vídeo -->
+        <div id="myModal" class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Introdução ao Minecraft</p>
+                    <button class="delete" aria-label="close" id="closeModal"></button>
+                </header>
+                <section class="modal-card-body">
+                    <iframe 
+                        width="100%" 
+                        height="315" 
+                        src="https://www.youtube.com/embed/8H1qC_Sq8FY" 
+                        title="Do básico ao Profissional Minecraft Tutorial (PI)" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen>
+                    </iframe>
+                    <p>Aula introdutória da mecânica de sobrevivência no Minecraft.</p>
+                </section>
+                <footer class="modal-card-foot">
+                    <div class="buttons">
+                        <button class="button is-success" id="closeModalBtn">Concluído</button>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../main.js"></script>
+    <script src="biblioteca.js"></script>
+</body>
+</html>

@@ -1,0 +1,268 @@
+/* ===== ESTILOS ESPECÍFICOS DA PÁGINA QUEM SOMOS ===== */
+
+/* Configuração do body com imagem de fundo */
+body {
+    background-image: url("../assets/Inserir\ um\ título.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    min-height: 100vh;
+    margin: 0;
+    position: relative;
+}
+
+/* Overlay para melhorar legibilidade */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: -1;
+}
+
+/* Container principal do conteúdo */
+.content-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 3rem;
+    margin: 2rem auto;
+    max-width: 800px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Título principal */
+.main-title {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Subtítulos */
+.section-title {
+    color: #3273dc;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 2rem 0 1rem 0;
+    border-bottom: 2px solid #3273dc;
+    padding-bottom: 0.5rem;
+}
+
+/* Parágrafos */
+.content-text {
+    color: #4a4a4a;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    text-align: justify;
+}
+
+/* Lista de membros da equipe */
+.team-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+}
+
+.team-member {
+    background: rgba(50, 115, 220, 0.1);
+    border-left: 4px solid #3273dc;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 0 8px 8px 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-member:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(50, 115, 220, 0.2);
+}
+
+.member-name {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 1.1rem;
+}
+
+.member-role {
+    color: #3273dc;
+    font-style: italic;
+    margin-top: 0.25rem;
+}
+
+/* Botão de contato */
+.contact-button {
+    display: inline-block;
+    background: linear-gradient(135deg, #3273dc, #2366d1);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    box-shadow: 0 4px 12px rgba(50, 115, 220, 0.3);
+}
+
+.contact-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(50, 115, 220, 0.4);
+    color: white;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+
+/* Tablets (768px - 1023px) */
+@media screen and (max-width: 1023px) {
+    .content-container {
+        margin: 1.5rem;
+        padding: 2rem;
+        max-width: none;
+    }
+    
+    .main-title {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 1.3rem;
+    }
+    
+    .content-text {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+    
+    .team-member {
+        padding: 0.75rem 1rem;
+    }
+    
+    .member-name {
+        font-size: 1rem;
+    }
+}
+
+/* Smartphones (até 767px) */
+@media screen and (max-width: 767px) {
+    body {
+        background-attachment: scroll;
+    }
+    
+    .content-container {
+        margin: 1rem 0.5rem;
+        padding: 1.5rem;
+        border-radius: 8px;
+    }
+    
+    .main-title {
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+    }
+    
+    .section-title {
+        font-size: 1.2rem;
+        margin: 1.5rem 0 0.75rem 0;
+    }
+    
+    .content-text {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        text-align: left;
+        margin-bottom: 1rem;
+    }
+    
+    .team-member {
+        padding: 0.5rem 0.75rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .member-name {
+        font-size: 0.95rem;
+    }
+    
+    .member-role {
+        font-size: 0.85rem;
+    }
+    
+    .contact-button {
+        width: 100%;
+        text-align: center;
+        padding: 0.75rem 1rem;
+        margin-top: 1.5rem;
+    }
+}
+
+/* Smartphones pequenos (até 480px) */
+@media screen and (max-width: 480px) {
+    .content-container {
+        margin: 0.5rem 0.25rem;
+        padding: 1rem;
+    }
+    
+    .main-title {
+        font-size: 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 1.1rem;
+    }
+    
+    .content-text {
+        font-size: 0.9rem;
+    }
+    
+    .team-member {
+        padding: 0.5rem;
+    }
+    
+    .member-name {
+        font-size: 0.9rem;
+    }
+    
+    .member-role {
+        font-size: 0.8rem;
+    }
+}
+
+/* Orientação paisagem em dispositivos móveis */
+@media screen and (max-width: 767px) and (orientation: landscape) {
+    .content-container {
+        margin: 0.5rem;
+        padding: 1rem;
+    }
+    
+    .main-title {
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .section-title {
+        font-size: 1.1rem;
+        margin: 1rem 0 0.5rem 0;
+    }
+}
+
+/* Melhorias para telas muito pequenas */
+@media screen and (max-width: 320px) {
+    .main-title {
+        font-size: 1.25rem;
+    }
+    
+    .section-title {
+        font-size: 1rem;
+    }
+    
+    .content-text {
+        font-size: 0.85rem;
+    }
+}
+

@@ -1,0 +1,156 @@
+/* ===== ESTILOS ESPECÍFICOS DA PÁGINA INICIAL ===== */
+
+/* Container principal */
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 60px;
+    padding: 2rem 1rem;
+    min-height: calc(100vh - 120px);
+}
+
+/* Seção de texto */
+#texts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    max-width: 500px;
+}
+
+#neymar {
+    max-width: 450px;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* Container dos cards */
+#divs {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+    max-width: 400px;
+}
+
+/* Estilos dos cards de navegação */
+.divs_path {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.divs_path:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.divs_path img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+.divs_path:hover img {
+    transform: scale(1.05);
+}
+
+.divs_path a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+
+/* Tablets (768px - 1023px) */
+@media screen and (max-width: 1023px) {
+    main {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+        padding: 1.5rem 1rem;
+    }
+    
+    #texts {
+        max-width: 100%;
+        text-align: center;
+    }
+    
+    #neymar {
+        max-width: 100%;
+        font-size: 1.5rem;
+    }
+    
+    #divs {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 100%;
+        gap: 15px;
+    }
+    
+    .divs_path {
+        width: 280px;
+        height: 180px;
+        min-width: 280px;
+    }
+}
+
+/* Smartphones (até 767px) */
+@media screen and (max-width: 767px) {
+    main {
+        padding: 1rem 0.5rem;
+        gap: 30px;
+    }
+    
+    #neymar {
+        font-size: 1.25rem;
+        line-height: 1.4;
+        margin-bottom: 1.5rem;
+    }
+    
+    #divs {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .divs_path {
+        width: 90vw;
+        max-width: 350px;
+        height: 150px;
+        min-width: unset;
+    }
+}
+
+/* Smartphones pequenos (até 480px) */
+@media screen and (max-width: 480px) {
+    main {
+        padding: 0.5rem;
+        gap: 20px;
+    }
+    
+    #neymar {
+        font-size: 1.1rem;
+        padding: 0 1rem;
+    }
+    
+    .divs_path {
+        width: 95vw;
+        height: 130px;
+    }
+}
+

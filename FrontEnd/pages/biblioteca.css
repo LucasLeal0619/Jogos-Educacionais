@@ -1,0 +1,217 @@
+/* ===== ESTILOS ESPECÍFICOS DA PÁGINA BIBLIOTECA ===== */
+
+/* Título da seção */
+h2 {
+    font-size: x-large;
+    font-weight: bold;
+    text-align: center;
+    margin: 2rem 0;
+    color: #363636;
+}
+
+/* Container dos cursos */
+#courses {
+    padding: 0 1rem;
+    justify-content: center;
+}
+
+/* Estilos dos cards */
+.card {
+    width: 100%;
+    max-width: 300px;
+    margin: 10px auto;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card .card-image img {
+    height: 180px;
+    object-fit: cover;
+    width: 100%;
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+.card .card-content {
+    padding: 1.5rem;
+}
+
+.card .content {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.card .button {
+    margin-top: 1rem;
+    width: 100%;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.card .button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(50, 115, 220, 0.3);
+}
+
+/* Estilos do modal */
+.modal-card {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.modal-card-head {
+    background-color: #3273dc;
+    color: white;
+    padding: 1.5rem;
+}
+
+.modal-card-title {
+    color: white !important;
+    font-weight: 600;
+}
+
+.modal-card-body {
+    padding: 2rem;
+}
+
+.modal-card-body iframe {
+    width: 100%;
+    height: 315px;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.modal-card-body p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #4a4a4a;
+}
+
+.modal-card-foot {
+    padding: 1.5rem;
+    justify-content: flex-end;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+
+/* Tablets (768px - 1023px) */
+@media screen and (max-width: 1023px) {
+    h2 {
+        font-size: 1.75rem;
+        margin: 1.5rem 0;
+    }
+    
+    #courses {
+        padding: 0 0.5rem;
+    }
+    
+    .card {
+        max-width: 280px;
+    }
+    
+    .modal-card-body iframe {
+        height: 280px;
+    }
+}
+
+/* Smartphones (até 767px) */
+@media screen and (max-width: 767px) {
+    h2 {
+        font-size: 1.5rem;
+        margin: 1rem 0;
+        padding: 0 1rem;
+    }
+    
+    #courses {
+        padding: 0;
+    }
+    
+    .card {
+        max-width: 90vw;
+        margin: 10px 5vw;
+    }
+    
+    .card .card-image img {
+        height: 160px;
+    }
+    
+    .card .card-content {
+        padding: 1rem;
+    }
+    
+    .card .title {
+        font-size: 1.25rem;
+    }
+    
+    .card .subtitle {
+        font-size: 1rem;
+    }
+    
+    .modal-card {
+        margin: 1rem;
+        max-height: calc(100vh - 2rem);
+    }
+    
+    .modal-card-body {
+        padding: 1rem;
+        max-height: calc(100vh - 200px);
+        overflow-y: auto;
+    }
+    
+    .modal-card-body iframe {
+        height: 200px;
+    }
+    
+    .modal-card-head,
+    .modal-card-foot {
+        padding: 1rem;
+    }
+}
+
+/* Smartphones pequenos (até 480px) */
+@media screen and (max-width: 480px) {
+    h2 {
+        font-size: 1.25rem;
+    }
+    
+    .card {
+        max-width: 95vw;
+        margin: 10px 2.5vw;
+    }
+    
+    .card .card-image img {
+        height: 140px;
+    }
+    
+    .card .title {
+        font-size: 1.1rem;
+    }
+    
+    .card .subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .card .content {
+        font-size: 0.9rem;
+    }
+    
+    .modal-card-body iframe {
+        height: 180px;
+    }
+    
+    .modal-card-head .modal-card-title {
+        font-size: 1.1rem;
+    }
+}
+

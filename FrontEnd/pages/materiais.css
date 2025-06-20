@@ -1,0 +1,233 @@
+/* ===== ESTILOS ESPECÍFICOS DA PÁGINA MATERIAIS ===== */
+
+/* Container principal */
+.section {
+    padding: 2rem 1.5rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Título da página */
+.title {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #363636;
+    font-weight: 600;
+}
+
+/* Lista de materiais */
+#materials-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#materials-list .box {
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e8e8e8;
+    background: white;
+    padding: 2rem;
+}
+
+#materials-list .box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+#materials-list .title {
+    color: #3273dc;
+    margin-bottom: 1rem;
+    text-align: left;
+    font-size: 1.25rem;
+    line-height: 1.3;
+}
+
+#materials-list p {
+    color: #4a4a4a;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+#materials-list .button {
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+#materials-list .button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(50, 115, 220, 0.3);
+}
+
+/* Estilos do modal */
+.modal .modal-content {
+    max-width: 90vw;
+    max-height: 90vh;
+    margin: 5vh auto;
+}
+
+.modal .box {
+    padding: 0;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Iframe para PDFs */
+iframe {
+    width: 100%;
+    height: 500px;
+    border: none;
+    border-radius: 8px;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+
+/* Tablets (768px - 1023px) */
+@media screen and (max-width: 1023px) {
+    .section {
+        padding: 1.5rem 1rem;
+    }
+    
+    .title {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    #materials-list .box {
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    #materials-list .title {
+        font-size: 1.15rem;
+    }
+    
+    iframe {
+        height: 400px;
+    }
+    
+    .modal .modal-content {
+        max-width: 95vw;
+        margin: 2.5vh auto;
+    }
+}
+
+/* Smartphones (até 767px) */
+@media screen and (max-width: 767px) {
+    .section {
+        padding: 1rem 0.5rem;
+    }
+    
+    .title {
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+        padding: 0 1rem;
+    }
+    
+    #materials-list .box {
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 8px;
+    }
+    
+    #materials-list .title {
+        font-size: 1.1rem;
+        line-height: 1.2;
+    }
+    
+    #materials-list p {
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+    }
+    
+    #materials-list .button {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 0.95rem;
+    }
+    
+    iframe {
+        height: 300px;
+    }
+    
+    .modal .modal-content {
+        max-width: 98vw;
+        max-height: 95vh;
+        margin: 2.5vh auto;
+    }
+    
+    .modal .box {
+        border-radius: 8px;
+    }
+}
+
+/* Smartphones pequenos (até 480px) */
+@media screen and (max-width: 480px) {
+    .section {
+        padding: 0.5rem 0.25rem;
+    }
+    
+    .title {
+        font-size: 1.5rem;
+        padding: 0 0.5rem;
+    }
+    
+    #materials-list .box {
+        padding: 0.75rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    #materials-list .title {
+        font-size: 1rem;
+    }
+    
+    #materials-list p {
+        font-size: 0.9rem;
+    }
+    
+    #materials-list .button {
+        font-size: 0.9rem;
+        padding: 0.6rem;
+    }
+    
+    iframe {
+        height: 250px;
+    }
+}
+
+/* Orientação paisagem em dispositivos móveis */
+@media screen and (max-width: 767px) and (orientation: landscape) {
+    iframe {
+        height: 200px;
+    }
+    
+    .modal .modal-content {
+        max-height: 98vh;
+    }
+}
+
+/* Melhorias para telas muito pequenas */
+@media screen and (max-width: 320px) {
+    .title {
+        font-size: 1.25rem;
+    }
+    
+    #materials-list .title {
+        font-size: 0.95rem;
+    }
+    
+    #materials-list p {
+        font-size: 0.85rem;
+    }
+    
+    iframe {
+        height: 200px;
+    }
+}
+

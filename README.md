@@ -345,7 +345,7 @@ Confirmar se IDs dos elementos estão corretos - Testar funcionalidade com conso
 
 **Contato e Suporte** 
 Para  	questões  	técnicas  	ou  	sugestões  	de  	melhorias:  	-  	Email: 
-JogosNaEducação@gmail.com - Documentação: Consultar este README.md e 
+etucation288@gmail.com - Documentação: Consultar este README.md e 
 RESPONSIVIDADE.md - Issues: Reportar problemas através do sistema de controle de versão 
 
 

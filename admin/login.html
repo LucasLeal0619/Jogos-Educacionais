@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login de Administrador</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <style>
+        /* --- Ajustes de Responsividade (Adicionados) --- */
+        @media screen and (max-width: 480px) {
+            .box {
+                width: 95% !important; /* Ocupa quase toda a largura da tela em celulares */
+                margin: 10px; /* Adiciona margem para não colar nas bordas */
+            }
+        }
+        /* Fim dos Ajustes de Responsividade */
+
+        
+        html, body { height: 100%; }
+        body { display: flex; align-items: center; justify-content: center; background-color: #f5f5f5; }
+    </style>
+</head>
+<body>
+    <div class="box" style="width: 400px;"> /* Largura fixa para desktop/tablet */
+        <h1 class="title has-text-centered">Acesso Restrito</h1>
+        <p class="subtitle has-text-centered">Painel de Administração</p>
+        
+        <form id="admin-login-form">
+            <div class="field">
+                <label class="label" for="email">Email</label>
+                <div class="control">
+                    <input class="input" type="email" id="email" placeholder="seu-email@exemplo.com" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label" for="password">Palavra-passe</label>
+                <div class="control">
+                    <input class="input" type="password" id="password" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <button class="button is-primary is-fullwidth" type="submit">Entrar</button>
+            </div>
+        </form>
+        <p id="error-message" class="has-text-danger has-text-centered"></p>
+    </div>
+
+    <!-- O Supabase Config DEVE ser importado aqui também -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../frontend/supabaseConfig.js"></script>
+
+    <script>
+        const form = document.getElementById('admin-login-form');
+        const errorMessage = document.getElementById('error-message');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            errorMessage.textContent = ''; 
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                // A única responsabilidade desta página: tentar fazer o login.
+                const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+                
+                if (error) throw error;
+
+                // Se o login for bem-sucedido, guarda o token e redireciona.
+                // A PRÓXIMA página (admin.html) vai verificar se o usuário é realmente um admin.
+                localStorage.setItem('adminToken', data.session.access_token);
+                window.location.href = 'admin.html'; // Redireciona para o dashboard principal
+
+            } catch (error) {
+                console.error('Erro no login:', error.message);
+                errorMessage.textContent = "Email, senha ou permissão inválidos.";
+            }
+        });
+
+        // Verificação inicial: se já existe um token, tenta ir direto para o dashboard
+        if (localStorage.getItem('adminToken')) {
+            window.location.href = 'admin.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Jogos na Educação</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- Ajustes de Responsividade (Adicionados) --- */
+
+        /* 1. Container: Em telas menores, reduz o max-width e aumenta o padding */
+        @media screen and (max-width: 480px) {
+            .container {
+                max-width: 95%; /* Ocupa quase toda a largura da tela */
+                padding: 15px; /* Reduz o padding interno */
+            }
+        }
+        /* Fim dos Ajustes de Responsividade */
+
+        
+        html, body { height: 100%; }
+        body { display: flex; align-items: center; justify-content: center; background-color: #f5f5f5; }
+        .container { width: 100%; max-width: 400px; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); } /* Largura máxima para desktop/tablet */
+        .field { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="title has-text-centered">Crie a sua Conta</h2>
+        
+        <form id="signup-form">
+            <div class="field">
+                <label class="label" for="name">Nome Completo</label>
+                <div class="control">
+                    <input class="input" type="text" id="name" required>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" for="email">Email</label>
+                <div class="control">
+                    <input class="input" type="email" id="email" required>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" for="password">Senha (mínimo 6 caracteres)</label>
+                <div class="control">
+                    <input class="input" type="password" id="password" required>
+                </div>
+            </div>
+            <div class="field">
+                <button class="button is-primary is-fullwidth" type="submit">Criar Conta</button>
+            </div>
+        </form>
+
+        <div class="field">
+            <button class="button is-danger is-fullwidth" id="registerWithGoogle">
+                <span class="icon"><i class="fab fa-google"></i></span>
+                <span>Cadastrar com Google</span>
+            </button>
+        </div>
+        
+        <p id="message" class="has-text-centered mt-2"></p>
+        <div class="has-text-centered mt-4">
+            <a href="../../index.html">Já tem uma conta? Faça o login</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../supabaseConfig.js"></script>
+    <script>
+        const form = document.getElementById("signup-form");
+        const googleButton = document.getElementById("registerWithGoogle");
+        const messageEl = document.getElementById("message");
+
+        // Cadastro com Email
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            messageEl.textContent = "";
+            messageEl.classList.remove("has-text-success", "has-text-danger");
+
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            try {
+                const { error } = await supabaseClient.auth.signUp({
+                    email: email,
+                    password: password,
+                    options: { data: { full_name: name } }
+                });
+                if (error) throw error;
+                
+                messageEl.textContent = "Sucesso! Verifique o seu email para confirmar a conta.";
+                messageEl.classList.add("has-text-success");
+                form.reset();
+            } catch (error) {
+                messageEl.textContent = error.message;
+                messageEl.classList.add("has-text-danger");
+            }
+        });
+
+        // Cadastro com Google
+        googleButton.addEventListener("click", async () => {
+            messageEl.textContent = "";
+            const { error } = await supabaseClient.auth.signInWithOAuth({ provider: "google" });
+            if (error) {
+                messageEl.textContent = "Erro ao tentar cadastro com o Google.";
+                messageEl.classList.add("has-text-danger");
+            }
+        });
+    </script>
+</body>
+</html>
+

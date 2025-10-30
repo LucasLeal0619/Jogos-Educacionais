@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Materiais</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- Ajustes de Responsividade (Adicionados) --- */
+
+        /* Estilo para o botão de menu hamburger (visível apenas em mobile) */
+        .hamburger-menu {
+            display: none;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1000; /* Acima de tudo */
+            cursor: pointer;
+            padding: 10px;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 4px;
+        }
+
+        /* Quando o menu está ativo, o main deve ser empurrado para o lado */
+        .sidebar.is-active ~ .main {
+            transform: translateX(220px);
+            transition: transform 0.3s;
+        }
+
+        @media screen and (max-width: 768px) {
+            .hamburger-menu {
+                display: block; /* Mostra o botão em mobile */
+            }
+            .sidebar {
+                /* Esconde a sidebar por padrão em mobile */
+                width: 220px;
+                transform: translateX(-220px);
+                transition: transform 0.3s;
+                height: 100vh;
+                position: fixed;
+                z-index: 999;
+                flex-direction: column; /* Volta a ser coluna para o menu aparecer na vertical */
+            }
+            .sidebar.is-active {
+                transform: translateX(0); /* Mostra a sidebar */
+            }
+            .main {
+                margin-left: 0; /* Remove a margem esquerda */
+                padding: 15px; /* Reduz o padding */
+                transition: margin-left 0.3s, transform 0.3s;
+            }
+            /* Ajustes de Tabela */
+            .table {
+                display: block;
+                overflow-x: auto; /* Permite a rolagem horizontal da tabela */
+                white-space: nowrap;
+            }
+            /* Ajustes de Modal */
+            .modal-card {
+                width: 90%; /* Ajusta a largura do modal em telas pequenas */
+            }
+        }
+        
+        /* Fim dos Ajustes de Responsividade */
+
+        
+        /* CSS consistente do painel de admin */
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background-color: #f7f7f7; }
+        .sidebar { width: 220px; background: #2c3e50; color: #ecf0f1; height: 100vh; position: fixed; display: flex; flex-direction: column; } /* Layout base para desktop */
+        .sidebar h2 { text-align: center; padding: 25px 0; font-weight: 600; background-color: #34495e; margin: 0; }
+        .sidebar a { display: block; color: #ecf0f1; padding: 16px 20px; text-decoration: none; transition: background-color 0.3s, padding-left 0.3s; border-bottom: 1px solid #34495e; }
+        .sidebar a:hover { background: #3498db; padding-left: 25px; }
+        .sidebar a.is-active { background: #2980b9; font-weight: bold; }
+        .sidebar #logoutBtn { margin-top: auto; background-color: #e74c3c; border-top: 1px solid #c0392b; }
+        .sidebar #logoutBtn:hover { background-color: #c0392b; }
+        .main { margin-left: 220px; padding: 30px; } /* Layout base para desktop */
+    </style>
+</head>
+<body>
+    <div class="hamburger-menu" id="hamburgerBtn">
+        <i class="fas fa-bars"></i>
+    </div>
+    
+    <div class="sidebar">
+        <h2>Admin</h2>
+        <a href="admin.html"> <i class="fas fa-tachometer-alt fa-fw"></i> &nbsp; Dashboard</a>
+        <a href="user_admin.html"> <i class="fas fa-users fa-fw"></i> &nbsp; Usuários</a>
+        <a href="cursos_admin.html"> <i class="fas fa-graduation-cap fa-fw"></i> &nbsp; Cursos</a>
+        <a href="materiais_adm.html" class="is-active"> <i class="fas fa-folder fa-fw"></i> &nbsp; Materiais</a>
+        <a href="#" id="logoutBtn"> <i class="fas fa-sign-out-alt fa-fw"></i> &nbsp; Sair</a>
+    </div>
+
+    <section class="main">
+        <div class="container">
+            <h1 class="title">Painel de Materiais</h1>
+    
+            <div class="level">
+                <div class="level-left">
+                    <button class="button is-primary" id="addMaterialBtn"><i class="fas fa-plus"></i>&nbsp; Adicionar Material</button>
+                </div>
+            </div>
+    
+            <div class="box mt-5">
+                <table class="table is-fullwidth is-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Título</th>
+                            <th>Link</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="materials-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    
+    <div class="modal" id="materialModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title" id="modal-title">Gerir Material</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <div class="field">
+                    <label class="label">Título do Material</label>
+                    <div class="control">
+                        <input class="input" type="text" id="materialTitle" placeholder="Digite o título do material">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Link do Material</label>
+                    <div class="control">
+                        <input class="input" type="url" id="materialLink" placeholder="https://drive.google.com/..." required>
+                    </div>
+                </div>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success" id="saveMaterialBtn">Salvar</button>
+                <button class="button" id="cancelMaterialModal">Cancelar</button>
+            </footer>
+        </div>
+    </div>
+    
+    <script>
+        // O SEU JAVASCRIPT ORIGINAL ESTÁ CORRETO. NENHUMA MUDANÇA NA LÓGICA FOI NECESSÁRIA.
+        const backendApiUrl = 'https://pi-y7u4.onrender.com';
+        let editingMaterialId = null;
+
+        function getAuthHeaders() {
+            const token = localStorage.getItem('adminToken');
+            if (!token) { alert('Acesso negado. Por favor, faça o login.'); window.location.href = 'login.html'; return null; }
+            return { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` };
+        }
+
+        async function fetchAndRenderMaterials() {
+            try {
+                // CORREÇÃO LÓGICA: A busca por materiais também deve ser autenticada
+                const headers = getAuthHeaders(); if (!headers) return;
+                const response = await fetch(`${backendApiUrl}/api/materiais`, { headers });
+                const materials = await response.json();
+                
+                const tableBody = document.getElementById('materials-table-body');
+                tableBody.innerHTML = ''; 
+
+                if (materials.length === 0) { tableBody.innerHTML = '<tr><td colspan="4" class="has-text-centered">Nenhum material encontrado.</td></tr>'; return; }
+
+                materials.forEach(material => {
+                    tableBody.innerHTML += `
+                        <tr>
+                            <td>${material.id}</td>
+                            <td>${material.nome}</td>
+                            <td><a href="${material.link}" target="_blank" class="button is-link is-small">Ver Link</a></td>
+                            <td>
+                                <button class="button is-info is-small js-edit" data-id="${material.id}" data-nome="${material.nome}" data-link="${material.link}">Editar</button>
+                                <button class="button is-danger is-small js-delete ml-2" data-id="${material.id}">Apagar</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            } catch (error) { console.error('Falha ao buscar materiais:', error); }
+        }
+
+        async function deleteMaterial(id) {
+            if (!confirm('Tem a certeza que deseja apagar este material?')) return;
+            try {
+                const headers = getAuthHeaders(); if (!headers) return;
+                await fetch(`${backendApiUrl}/api/materiais/${id}`, { method: 'DELETE', headers });
+                fetchAndRenderMaterials();
+            } catch (error) { console.error('Erro ao apagar material:', error); }
+        }
+
+        async function saveMaterial() {
+            const nome = document.getElementById('materialTitle').value;
+            const link = document.getElementById('materialLink').value;
+            if (!nome || !link) { alert('Nome e Link são obrigatórios.'); return; }
+
+            const headers = getAuthHeaders(); if (!headers) return;
+            const url = editingMaterialId ? `${backendApiUrl}/api/materiais/${editingMaterialId}` : `${backendApiUrl}/api/materiais`;
+            const method = editingMaterialId ? 'PUT' : 'POST';
+
+            try {
+                await fetch(url, { method: method, headers: headers, body: JSON.stringify({ nome, link }) });
+                closeModal();
+                fetchAndRenderMaterials();
+            } catch (error) { console.error('Erro ao salvar material:', error); }
+        }
+
+        const materialModal = document.getElementById('materialModal');
+        const modalTitleElement = materialModal.querySelector('.modal-card-title');
+
+        function openModalForNew() {
+            editingMaterialId = null;
+            modalTitleElement.textContent = 'Adicionar Novo Material';
+            document.getElementById('materialTitle').value = '';
+            document.getElementById('materialLink').value = '';
+            materialModal.classList.add('is-active');
+        }
+
+        function openModalForEdit(id, nome, link) {
+            editingMaterialId = id;
+            modalTitleElement.textContent = 'Editar Material';
+            document.getElementById('materialTitle').value = nome;
+            document.getElementById('materialLink').value = link;
+            materialModal.classList.add('is-active');
+        }
+
+        function closeModal() { materialModal.classList.remove('is-active'); }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Lógica do Menu Hamburger
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const sidebar = document.querySelector('.sidebar');
+
+            if (hamburgerBtn && sidebar) {
+                hamburgerBtn.addEventListener('click', () => {
+                    sidebar.classList.toggle('is-active');
+                });
+
+                // Fechar o menu ao clicar em um link (opcional, mas melhora a UX em mobile)
+                sidebar.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (window.innerWidth <= 768) {
+                            sidebar.classList.remove('is-active');
+                        }
+                    });
+                });
+            }
+            
+            if (!localStorage.getItem('adminToken')) { alert('Acesso negado.'); window.location.href = 'login.html'; return; }
+            if (!localStorage.getItem('adminToken')) { alert('Acesso negado.'); window.location.href = 'login.html'; return; }
+
+            document.getElementById('addMaterialBtn').addEventListener('click', openModalForNew);
+            document.getElementById('saveMaterialBtn').addEventListener('click', saveMaterial);
+            document.getElementById('logoutBtn').addEventListener('click', () => { localStorage.removeItem('adminToken'); window.location.href='login.html' });
+
+            materialModal.querySelector('.modal-background').addEventListener('click', closeModal);
+            materialModal.querySelector('.delete').addEventListener('click', closeModal);
+            document.getElementById('cancelMaterialModal').addEventListener('click', closeModal);
+
+            document.getElementById('materials-table-body').addEventListener('click', (event) => {
+                const target = event.target;
+                if (target.classList.contains('js-delete')) { deleteMaterial(target.dataset.id); }
+                if (target.classList.contains('js-edit')) { openModalForEdit(target.dataset.id, target.dataset.nome, target.dataset.link); }
+            });
+            
+            fetchAndRenderMaterials();
+        });
+    </script>
+</body>
+</html>

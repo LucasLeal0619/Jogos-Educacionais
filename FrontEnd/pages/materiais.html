@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materiais</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- Ajustes de Responsividade (Adicionados) --- */
+
+        /* 1. Navbar: Ajusta o campo de pesquisa para telas menores */
+        @media screen and (max-width: 1023px) {
+            /* Em tablets e celulares */
+            #pesquisa {
+                width: 100%; /* Ocupa a largura total */
+                margin-top: 10px; /* Adiciona margem superior */
+            }
+        }
+
+        /* 2. Modal de PDF: Torna o modal mais adaptável em telas menores */
+        .modal-content {
+            width: 90%; /* Largura do modal em telas pequenas */
+        }
+        @media screen and (min-width: 769px) {
+            .modal-content {
+                width: 80%; /* Largura maior para desktop */
+            }
+        }
+
+        /* 3. Iframe: Ajusta a altura do iframe do PDF para telas menores */
+        iframe {
+            height: 80vh; /* Altura relativa à altura da viewport */
+        }
+        /* Fim dos Ajustes de Responsividade */
+
+        
+        /* O seu CSS original, sem alterações */
+        #pesquisa { margin-top: 4px; width: 30vw; } /* Largura base para desktop */
+        #links-start { gap: 10px; }
+        iframe { width: 100%; border: none; } /* A altura será controlada pela regra de responsividade */
+    </style>
+</head>
+<body>
+    <header class="box navbar" id="navbar-flex">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="../../index.html"><h1 class="title" id="title">ET Education</h1></a>
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start" id="links-start">
+                <a class="navbar-item" href="../../index.html">Início</a>
+                <a class="navbar-item" href="biblioteca.html">Biblioteca</a>
+                <a class="navbar-item" href="materiais.html">Materiais</a>
+                <a class="navbar-item" href="quemSomos.html">Quem Somos</a>
+            </div>
+            </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="title">Materiais de Estudo</h2>
+            <div id="materials-list">
+                <p>A carregar materiais...</p>
+            </div>
+        </div>
+    </section>
+    
+    <div id="pdf-modal" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="box">
+                <iframe id="pdf-frame" src=""></iframe>
+            </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../supabaseConfig.js"></script>
+    <script>
+        // Use uma variável de ambiente ou um arquivo de configuração para a URL da API do backend em produção
+        // Por enquanto, vamos usar um placeholder. Você precisará substituir isso pela URL real do seu backend.
+        const backendApiUrl = "https://pi-y7u4.onrender.com"; 
+
+        // Função "ajudante" para obter o token do utilizador logado
+        function getAuthHeaders() {
+            const token = localStorage.getItem("userToken"); // Usa o mesmo token do index.html
+            if (!token) {
+                alert("Você precisa de estar logado para ver os materiais.");
+                window.location.href = "../../index.html"; // Redireciona para o login
+                return null;
+            }
+            return {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            };
+        }
+
+        // Busca os materiais no nosso backend seguro
+        async function fetchAndRenderMaterials() {
+            const materialsList = document.getElementById("materials-list");
+            try {
+                const headers = getAuthHeaders();
+                if (!headers) return; // Para se não houver token
+
+                const response = await fetch(`${backendApiUrl}/api/materiais`, { headers });
+                if (!response.ok) {
+                    throw new Error("Falha ao carregar os materiais. Tente novamente mais tarde.");
+                }
+                
+                const materials = await response.json();
+                
+                materialsList.innerHTML = ""; // Limpa a mensagem "A carregar..."
+
+                if (materials.length === 0) {
+                    materialsList.innerHTML = "<p>Nenhum material de estudo disponível no momento.</p>";
+                    return;
+                }
+
+                materials.forEach(material => {
+                    const listItem = document.createElement("div");
+                    listItem.classList.add("box", "mb-4");
+                    // Usamos os nomes das colunas da sua tabela: 'nome' e 'link'
+                    listItem.innerHTML = `
+                        <p class="title is-5">${material.nome}</p>
+                        <button class="button is-link" data-url="${material.link}">Ver Material</button>
+                    `;
+                    
+                    // Adiciona o evento de clique para abrir o modal
+                    const button = listItem.querySelector("button");
+                    button.addEventListener("click", () => {
+                        openPdfModal(material.link);
+                    });
+            
+                    materialsList.appendChild(listItem);
+                });
+
+            } catch (error) {
+                console.error(error);
+                materialsList.innerHTML = `<div class="notification is-danger">${error.message}</div>`;
+            }
+        }
+
+        // Funções para controlar o modal
+        const pdfModal = document.getElementById("pdf-modal");
+        const pdfFrame = document.getElementById("pdf-frame");
+
+        function openPdfModal(url) {
+            // Para links do Google Drive, precisamos de um formato de "embed"
+            if (url.includes("drive.google.com")) {
+                // Transforma um link de partilha num link de visualização incorporado
+                const embedUrl = url.replace("/view", "/preview");
+                pdfFrame.src = embedUrl;
+            } else {
+                pdfFrame.src = url;
+            }
+            pdfModal.classList.add("is-active");
+        }
+
+        function closeModal() {
+            pdfModal.classList.remove("is-active");
+            pdfFrame.src = ""; // Limpa o iframe para parar o carregamento
+        }
+
+        // Ponto de entrada da aplicação
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- Lógica do Menu Hamburger ---
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+            if ($navbarBurgers.length > 0) {
+                $navbarBurgers.forEach(el => {
+                    el.addEventListener('click', () => {
+                        const target = el.dataset.target;
+                        const $target = document.getElementById(target);
+                        el.classList.toggle('is-active');
+                        $target.classList.toggle('is-active');
+                    });
+                });
+            }
+
+            // Verifica o login antes de fazer qualquer coisa
+            if (!localStorage.getItem("userToken")) {
+                alert("Acesso negado. Por favor, faça o login.");
+                window.location.href = "../../index.html";
+                return;
+            }
+
+            fetchAndRenderMaterials();
+
+            // Adiciona eventos para fechar o modal
+            pdfModal.querySelector(".modal-close").addEventListener("click", closeModal);
+            pdfModal.querySelector(".modal-background").addEventListener("click", closeModal);
+        });
+    </script>
+</body>
+</html>
+
+
